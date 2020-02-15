@@ -25,36 +25,54 @@ import java.util.zip.ZipInputStream;
 @SpringBootTest
 public class DeployTests extends TestCase {
 
-    @Autowired
-    private RuntimeService runtimeService;
+	@Autowired
+	private RuntimeService runtimeService;
 
-    @Autowired
-    private TaskService taskService;
+	@Autowired
+	private TaskService taskService;
 
-    @Autowired
-    private ProcessEngineConfiguration processEngineConfiguration;
+	@Autowired
+	private ProcessEngineConfiguration processEngineConfiguration;
 
 	@Autowired
 	private RepositoryService repositoryService;
 
-    /**
-     * @description 部署流程 
-     * @Exception   
-     *
-     */
+	/**
+	 * @description 部署流程
+	 * 通过bpmn 和 png方式部署
+	 */
 
-    @Test
+	@Test
 	public void deploymentTest() {
 		Deployment deployment = repositoryService.createDeployment()
-				.addClasspathResource("diagram/holiday.bpmn")
-				.addClasspathResource("diagram/holiday.png")
-				.name("请假申请单流程")
+				.addClasspathResource("diagram/holiday2.bpmn")
+				.addClasspathResource("diagram/holiday2.png")
+				.name("请假申请单流程2")
 				.deploy();
 		System.out.println("deploymentName:" + deployment.getName());
 		System.out.println("deploymentId:" + deployment.getId());
 		System.out.println("========================================");
 		System.out.println("========================================");
 	}
+
+
+	@Test
+	public void deploymentWithListenerTest() {
+		Deployment deployment = repositoryService.createDeployment()
+				.addClasspathResource("diagram/holiday3.bpmn")
+				.addClasspathResource("diagram/holiday3.png")
+				.name("贷款流程")
+				.deploy();
+		System.out.println("deploymentName:" + deployment.getName());
+		System.out.println("deploymentId:" + deployment.getId());
+		System.out.println("========================================");
+		System.out.println("========================================");
+	}
+
+	/**
+	 * @description 通过ZIP包部署流程  zip：bpmn+png
+	 * @Exception
+	 */
 
 
 	@Test
@@ -72,6 +90,10 @@ public class DeployTests extends TestCase {
 
 	}
 
+	/**
+	 * @description 获取部署的png和bpmn内容 存储成文件
+	 * @Exception
+	 */
 
 	@Test
 	public void getBMPNPackageFile() {
@@ -106,12 +128,9 @@ public class DeployTests extends TestCase {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
 		}
 
-
 	}
-
 
 
 }

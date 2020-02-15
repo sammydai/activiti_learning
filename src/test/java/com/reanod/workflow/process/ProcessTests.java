@@ -62,12 +62,29 @@ public class ProcessTests {
 	@Test
 	public void startProcessTest() {
 		//key值在bpmn图中的id 或者存在数据库act-re-deployment key
-		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("holiday");
+		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("holiday3");
 
 		System.out.println("流程部署ID:" + processInstance.getDeploymentId());
 		System.out.println("流程定义ID:"+processInstance.getProcessDefinitionId());
 		System.out.println("流程实例ID:" + processInstance.getId());
 		System.out.println("活动ID:" + processInstance.getActivityId());
+
+	}
+
+	@Test
+	public void startProcessWithBusinessKeyTest() {
+		/**
+		 * key值在bpmn图中的id 或者存在数据库act-re-deployment key
+		 * 第二个参数就是businessKey 在ru-execution表中可以看到businessKey值
+		 * 该key值可以关联业务系统的数据库表字段
+		 * 本质是ru-execution表中的businessKey字段存入业务标识
+		 */
+		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("holiday","1001");
+		System.out.println("流程部署ID:" + processInstance.getDeploymentId());
+		System.out.println("流程定义ID:"+processInstance.getProcessDefinitionId());
+		System.out.println("流程实例ID:" + processInstance.getId());
+		System.out.println("活动ID:" + processInstance.getActivityId());
+		System.out.println("流程的busineessKey"+processInstance.getBusinessKey());
 
 	}
 }

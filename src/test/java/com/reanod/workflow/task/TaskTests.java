@@ -62,14 +62,42 @@ public class TaskTests {
 
 		Task task = taskService.createTaskQuery()
 				.processDefinitionKey("holiday")
-				.taskAssignee("wangwu")
+				.taskAssignee("zhangsan")
+				.processInstanceBusinessKey("1001")
 				.singleResult();
 
 		System.out.println("流程实例ID:"+task.getProcessInstanceId());
 		System.out.println("任务ID:"+task.getId());
 		System.out.println("任务负责人:"+task.getAssignee());
 		System.out.println("任务名称:"+task.getName());
+		System.out.println("===============complete===============");
+		taskService.complete(task.getId());
 
 	}
+
+	/**
+	 * @description 处理任务
+	 * @Exception
+	 *
+	 */
+
+
+	@Test
+	public void taskComplete() {
+		Task task = taskService.createTaskQuery()
+				.processDefinitionKey("holiday3")
+				// .taskAssignee("zhangsan0")
+				.singleResult();
+
+		System.out.println("流程实例ID:"+task.getProcessInstanceId());
+		System.out.println("任务ID:"+task.getId());
+		System.out.println("任务负责人:"+task.getAssignee());
+		System.out.println("任务名称:"+task.getName());
+		System.out.println("===============complete===============");
+		taskService.complete(task.getId());
+
+
+	}
+
 
 }
