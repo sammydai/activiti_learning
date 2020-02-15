@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn"
-             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
-             xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath"
-             id="m1559179417530" name="" targetNamespace="http://www.activiti.org/test"
-             typeLanguage="http://www.w3.org/2001/XMLSchema">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="m1559179417530" name="" targetNamespace="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema">
   <process id="myProcess_1" isClosed="false" isExecutable="true" processType="None">
     <startEvent id="startevent1" name="StartEvent"/>
-    <userTask activiti:exclusive="true" id="usertask1" name="填写请假申请"/>
+    <userTask activiti:exclusive="true" id="usertask1" name="婵夘偄鍟撶拠宄颁海閻㈠疇�??"/>
     <sequenceFlow id="_2" sourceRef="startevent1" targetRef="usertask1"/>
-    <exclusiveGateway gatewayDirection="Unspecified" id="exclusivegateway1" name="请假时间判断（排他网关）"/>
+    <exclusiveGateway gatewayDirection="Unspecified" id="exclusivegateway1" name="鐠囧嘲浜ｉ弮鍫曟？閸掋�?�鏌囬敍鍫熷笓娴犳牜缍夐崗绛圭礆"/>
     <sequenceFlow id="_4" sourceRef="usertask1" targetRef="exclusivegateway1"/>
-    <userTask activiti:assignee="test" activiti:exclusive="true" id="usertask2" name="经理审批"/>
-    <userTask activiti:assignee="test2" activiti:exclusive="true" id="usertask3" name="总监审批"/>
-    <exclusiveGateway gatewayDirection="Unspecified" id="exclusivegateway2" name="请假时间判断（排他网关）"/>
+    <userTask activiti:exclusive="true" id="usertask2" name="缂佸繒鎮�??光剝�??"/>
+    <userTask activiti:exclusive="true" id="usertask3" name="閹崵娲�??光剝�??"/>
+    <exclusiveGateway gatewayDirection="Unspecified" id="exclusivegateway2" name="鐠囧嘲浜ｉ弮鍫曟？閸掋�?�鏌囬敍鍫熷笓娴犳牜缍夐崗绛圭礆"/>
     <endEvent id="endevent1" name="End"/>
-    <sequenceFlow id="_9" name="大于3天" sourceRef="exclusivegateway1" targetRef="usertask3">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${days>3}]]></conditionExpression>
+    <sequenceFlow id="_9" name="婢堆傜艾3婢讹�?" sourceRef="exclusivegateway1" targetRef="usertask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[
+        ]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="_10" name="小于等于3天" sourceRef="exclusivegateway1" targetRef="usertask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${days<=3}]]></conditionExpression>
+    <sequenceFlow id="_10" name="鐏忓繋绨粵澶夌�?3婢讹�?" sourceRef="exclusivegateway1" targetRef="usertask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[
+        ]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_11" sourceRef="usertask2" targetRef="exclusivegateway2"/>
     <sequenceFlow id="_12" sourceRef="usertask3" targetRef="exclusivegateway2"/>

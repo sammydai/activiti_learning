@@ -1,28 +1,43 @@
 package com.reanod.workflow;
 
+import junit.framework.TestCase;
+import org.activiti.engine.ProcessEngineConfiguration;
+import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.runtime.ProcessInstance;
-import org.activiti.engine.runtime.ProcessInstanceQuery;
 import org.activiti.engine.task.Task;
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ReanodWorkflowApplicationTests {
+public class ReanodWorkflowApplicationTests extends TestCase {
 
     @Autowired
     private RuntimeService runtimeService;
 
     @Autowired
     private TaskService taskService;
+
+    @Autowired
+    private ProcessEngineConfiguration processEngineConfiguration;
+
+	@Autowired
+	private RepositoryService repositoryService;
 
     /**启动流程实例分配任务给个人*/
     @Test
@@ -79,5 +94,69 @@ public class ReanodWorkflowApplicationTests {
             }
         }
     }
+
+
+
+
+
+	
+	
+
+
+	/**
+	 * @description 处理任务 
+	 * @Exception   
+	 *
+	 */
+	
+	
+	@Test
+	public void taskComplete() {
+		// System.out.println("===============zhangsantaskComplete===============");
+		// taskService.complete("f8ba5761-4eff-11ea-9c51-acde48001122");
+		System.out.println("======lisi======");
+		taskService.complete("0fa9be6d-4f03-11ea-8d7e-acde48001122");
+	}
+
+	@Test
+	public void getBMPNPackage() {
+		ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
+		processDefinitionQuery.processDefinitionKey("holiday");
+		ProcessDefinition processDefinition = processDefinitionQuery.latestVersion().singleResult();
+		String deploymentId = processDefinition.getDeploymentId();
+
+		InputStream pngInput =
+				repositoryService.getResourceAsStream(deploymentId, processDefinition.getDiagramResourceName());
+		InputStream bpmnInput =
+				repositoryService.getResourceAsStream(deploymentId, processDefinition.getResourceName());
+
+		FileOutputStream pngOutput = null;
+		FileOutputStream bpmnOutput = null;
+		try {
+			pngOutput = new FileOutputStream("/Users/daiwenting/Documents/TestCase/test11.png");
+			bpmnOutput = new FileOutputStream("/Users/daiwenting/Documents/TestCase/test22.bpmn");
+
+			IOUtils.copy(bpmnInput, bpmnOutput);
+			IOUtils.copy(pngInput, pngOutput);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pngOutput.close();
+				bpmnOutput.close();
+				pngInput.close();
+				bpmnInput.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
+
+
+	}
+
+
 
 }

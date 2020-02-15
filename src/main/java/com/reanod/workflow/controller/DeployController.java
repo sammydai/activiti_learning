@@ -1,7 +1,10 @@
 package com.reanod.workflow.controller;
 
 import com.reanod.workflow.utils.RestMessgae;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.DeploymentBuilder;
@@ -31,7 +34,7 @@ public class DeployController {
         this.repositoryService = repositoryService;
     }
 
-    @PostMapping(path = "deploy")
+    @PostMapping(path = "/deploy")
     @ApiOperation(value = "根据bpmnName部署流程",notes = "根据bpmnName部署流程")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "bpmnName",value = "设计的流程图名称",dataType = "String",paramType = "query",example = "myProcess")

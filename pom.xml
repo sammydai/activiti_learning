@@ -61,11 +61,28 @@
             <version>7.1.0.M1</version>
         </dependency>
 
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
+
         <!-- Activiti生成流程图 -->
+        <!--<dependency>-->
+            <!--<groupId>org.activiti</groupId>-->
+            <!--<artifactId>activiti-image-generator</artifactId>-->
+        <!--</dependency>-->
+
+
+        <!-- https://mvnrepository.com/artifact/org.activiti/activiti-image-generator -->
         <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-image-generator</artifactId>
+            <version>7.1.0.M1</version>
         </dependency>
+
+
+
 
 
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
@@ -87,6 +104,11 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-engine</artifactId>
+            <version>7.1.0.M2</version>
         </dependency>
 
 

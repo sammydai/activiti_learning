@@ -20,6 +20,8 @@ import java.util.List;
 public class ApplicationConfiguration  extends WebSecurityConfigurerAdapter {
 
     private Logger logger = LoggerFactory.getLogger(ApplicationConfiguration.class);
+
+
     @Autowired
     private DataSource dataSource;
 
@@ -39,8 +41,8 @@ public class ApplicationConfiguration  extends WebSecurityConfigurerAdapter {
         for (String[] user : usersGroupsAndRoles) {
             List<String> authoritiesStrings = Arrays.asList(Arrays.copyOfRange(user, 2, user.length));
             logger.info("> Registering new user: " + user[0] + " with the following Authorities[" + authoritiesStrings + "]");
-//            jdbcUserDetailsManager.createUser(new User(user[0], passwordEncoder().encode(user[1]),
-//                    authoritiesStrings.stream().map(s -> new SimpleGrantedAuthority(s)).collect(Collectors.toList())));
+           // jdbcUserDetailsManager.createUser(new User(user[0], passwordEncoder().encode(user[1]),
+           //         authoritiesStrings.stream().map(s -> new SimpleGrantedAuthority(s)).collect(Collectors.toList())));
         }
 
         return jdbcUserDetailsManager;
@@ -56,6 +58,8 @@ public class ApplicationConfiguration  extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .httpBasic();
+
+        // http.authorizeRequests().anyRequest().permitAll().and().logout().permitAll();
     }
 
     @Bean
