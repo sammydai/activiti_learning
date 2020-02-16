@@ -10,7 +10,7 @@ import org.activiti.engine.delegate.TaskListener;
  * @Date: 2020/2/15 19:44
  */
 
-public class MyTaskListener implements TaskListener{
+public class MyTaskListener implements TaskListener {
 	@Override
 	public void notify(DelegateTask delegateTask) {
 		System.out.println("=====delegateProcess==========");

@@ -1,6 +1,7 @@
 package com.reanod.workflow;
 
 import junit.framework.TestCase;
+import org.activiti.api.task.runtime.TaskRuntime;
 import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -31,6 +32,9 @@ public class ReanodWorkflowApplicationTests extends TestCase {
 
 	@Autowired
 	private RepositoryService repositoryService;
+
+    @Autowired
+    private TaskRuntime taskRuntime;
 
     /**启动流程实例分配任务给个人*/
     @Test

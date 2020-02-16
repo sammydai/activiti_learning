@@ -1,6 +1,5 @@
-package com.reanod.workflow.variable;
+package com.reanod.workflow.inclusive;
 
-import com.reanod.workflow.domain.Holiday;
 import junit.framework.TestCase;
 import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.RepositoryService;
@@ -20,7 +19,7 @@ import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class VariableTests extends TestCase {
+public class InclusiveGatewayTests extends TestCase {
 
 	@Autowired
 	private RuntimeService runtimeService;
@@ -42,9 +41,9 @@ public class VariableTests extends TestCase {
 	@Test
 	public void deploymentTest() {
 		Deployment deployment = repositoryService.createDeployment()
-				.addClasspathResource("diagram/holiday4.bpmn")
-				.addClasspathResource("diagram/holiday4.png")
-				.name("请假流程-流程变量")
+				.addClasspathResource("diagram/examine.bpmn")
+				.addClasspathResource("diagram/examine.png")
+				.name("体检流程")
 				.deploy();
 		System.out.println("deploymentName:" + deployment.getName());
 		System.out.println("deploymentId:" + deployment.getId());
@@ -53,51 +52,55 @@ public class VariableTests extends TestCase {
 	}
 
 	@Test
-	public void processInstanceWithVariablesTest() {
-		String key = "holiday4";
-		// Map<String, Object> hashMap = new HashMap<>();
-		// Holiday holiday = new Holiday();
-		// holiday.setNum(5F);
-		// hashMap.put("holiday", holiday);
-		// ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(key, hashMap);
+	public void processInstanceTest() {
+		String key = "examine";
 		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(key);
 		System.out.println("processInstance ID: " + processInstance.getId());
 		System.out.println("processInstance NAME:" + processInstance.getName());
 	}
 
 	@Test
-	public void setVariablesWithProcessInstance() {
-		String processId = "247f1b55-5010-11ea-a347-acde48001122";
-		Holiday holiday = new Holiday();
-		holiday.setNum(5F);
-		runtimeService.setVariable(processId,"holiday",holiday);
-	}
-
-
-	@Test
-	public void taskComplete() {
-		String key = "holiday4";
+	public void taskQueryWithAssignee() {
+		String key = "examine";
+		String assignee_user = "zhangsan";
+		Integer user_type = 2;
+		Map<String, Object> hashMap = new HashMap<>();
+		hashMap.put("userType", user_type);
 		Task task = taskService.createTaskQuery()
 				.processDefinitionKey(key)
-				.taskAssignee("zhangsan4")
-				// .taskAssignee("lisi4")
-				// .taskAssignee("zhaoliu4")
-				// .taskAssignee("wangwu4")
+				.taskAssignee(assignee_user)
 				.singleResult();
 		if (task != null) {
 			System.out.println("流程实例ID:" + task.getProcessInstanceId());
 			System.out.println("任务ID:" + task.getId());
 			System.out.println("任务负责人:" + task.getAssignee());
 			System.out.println("任务名称:" + task.getName());
-			System.out.println("===============complete task begin===============");
-			Map<String, Object> hashMap = new HashMap<>();
-			Holiday holiday = new Holiday();
-			holiday.setNum(5F);
-			hashMap.put("holiday", holiday);
-			// taskService.setVariablesLocal(task.getId(),hashMap);
+			System.out.println("===============complete task begin inclusive===============");
 			taskService.complete(task.getId(),hashMap); //完成任务时，设置流程的变量
-			System.out.println("===============complete task end===============");
-
+			System.out.println("===============complete task end inclusive===============");
 		}
 	}
+
+	@Test
+	public void taskQueryWithAssignee1() {
+		String key = "examine";
+		String assignee_user = "xiaowang";
+		// Integer user_type = 2;
+		// Map<String, Object> hashMap = new HashMap<>();
+		// hashMap.put("userType", user_type);
+		Task task = taskService.createTaskQuery()
+				.processDefinitionKey(key)
+				.taskAssignee(assignee_user)
+				.singleResult();
+		if (task != null) {
+			System.out.println("流程实例ID:" + task.getProcessInstanceId());
+			System.out.println("任务ID:" + task.getId());
+			System.out.println("任务负责人:" + task.getAssignee());
+			System.out.println("任务名称:" + task.getName());
+			System.out.println("===============complete task begin inclusive===============");
+			taskService.complete(task.getId()); //完成任务时，设置流程的变量
+			System.out.println("===============complete task end inclusive===============");
+		}
+	}
+
 }

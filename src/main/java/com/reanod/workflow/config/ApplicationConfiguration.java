@@ -36,7 +36,10 @@ public class ApplicationConfiguration  extends WebSecurityConfigurerAdapter {
                 {"erdemedeiros", "password", "ROLE_ACTIVITI_USER", "GROUP_activitiTeam"},
                 {"other", "password", "ROLE_ACTIVITI_USER", "GROUP_otherTeam"},
                 {"admin", "password", "ROLE_ACTIVITI_ADMIN"},
-        };
+				{"zhangsan5", "password", "ROLE_ACTIVITI_USER", "GROUP_activitiTeam"},
+				{"lisi5", "password", "ROLE_ACTIVITI_USER", "GROUP_activitiTeam"},
+
+		};
 
         for (String[] user : usersGroupsAndRoles) {
             List<String> authoritiesStrings = Arrays.asList(Arrays.copyOfRange(user, 2, user.length));
