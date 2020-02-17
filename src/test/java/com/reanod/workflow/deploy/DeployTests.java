@@ -45,9 +45,9 @@ public class DeployTests extends TestCase {
 	@Test
 	public void deploymentTest() {
 		Deployment deployment = repositoryService.createDeployment()
-				.addClasspathResource("diagram/holiday2.bpmn")
-				.addClasspathResource("diagram/holiday2.png")
-				.name("请假申请单流程2")
+				.addClasspathResource("processes/sampleProcess.bpmn")
+				// .addClasspathResource("diagram/holiday2.png")
+				.name("sample流程")
 				.deploy();
 		System.out.println("deploymentName:" + deployment.getName());
 		System.out.println("deploymentId:" + deployment.getId());
